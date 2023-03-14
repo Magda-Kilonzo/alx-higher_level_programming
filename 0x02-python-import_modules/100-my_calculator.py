@@ -1,26 +1,25 @@
-#!/usr/bin/python3
-from sys import argv, exit
-from calculator_1 import add, sub, mul,
+#include <Python.h>
 
-if __name__ == '__main__':
-    argv.pop(0)
-    argvlength = len(argv)
+/**
+* print_python_list_info - Prints basic info about Python lists.
+* @p: A PyObject list.
+*/
+void print_python_list_info(PyObject *p)
+{
+        int size, alloc, i;
+        PyObject *obj;
 
-    if (argvlength == 3):
-        a = int(argv[0])
-        b = int(argv[2])
+        size = Py_SIZE(p);
+        alloc = ((PyListObject *)p)->allocated;
 
-        if (argv[1] == "+"):
-            print("{:d} + {:d} = {:d}".format(a, b, add(a, b)))
-        elif (argv[1] == "-"):
-            print("{:d} - {:d} = {:d}".format(a, b, sub(a, b)))
-        elif (argv[1] == "*"):
-            print("{:d} * {:d} = {:d}".format(a, b, mul(a, b)))
-        elif (argv[1] == "/"):
-            print("{:d} / {:d} = {:d}".format(a, b, div(a, b)))
-        else:
-            print("Unknown operator. Available operators: +, -, * and /")
-            exit(1)
-    else:
-        print("Usage: ./100-my_calculator.py <a> <operator> <b>")
-        exit(1)
+        printf("[*] Size of the Python List = %d\n", size);
+        printf("[*] Allocated = %d\n", alloc);
+
+        for (i = 0; i < size; i++)
+        {
+            printf("Element %d: ", i);
+
+            obj = PyList_GetItem(p, i);
+            printf("%s\n", Py_TYPE(obj)->tp_name);
+        }
+}
